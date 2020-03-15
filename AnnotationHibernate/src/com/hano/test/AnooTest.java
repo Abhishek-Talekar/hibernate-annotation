@@ -20,21 +20,22 @@ public class AnooTest {
 			sessionFactory = SessionFactoryServiceRegistry.getSessionFactory();
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			person.setPerson_id(5);
-			person.setPerson_name("Ronny");
-			person.setPerson_email("sunny@amazon.com");
-			person.setContact("734734374");
-			session.save(person);
+//			person.setPerson_id(7);
+//			person.setPerson_name("Ronny");
+//			person.setPerson_email("sunny@amazon.com");
+//			person.setContact("734734374");
+			person = session.get(Person.class, 1);
 			flag = true;
+			transaction.commit();
+			System.out.println(person);
 		} finally {
-			if (session != null) {
-			}
-			if (flag == true) {
-				transaction.commit();
-			} else {
-				transaction.rollback();
-			}
-			SessionFactoryServiceRegistry.closeSessionFactory();
+			if (transaction != null)
+				if (flag) {
+					transaction.commit();
+				} else {
+					transaction.rollback();
+				}
+
 		}
 	}
 
